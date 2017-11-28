@@ -247,10 +247,11 @@ def main_base_fc(): # Fuel Condenser Branch
 					print("Operation Canceled")
 				if menu == "1":
 					if solarPanels >= 1:
+						progress("Inserting", 3)
 						solarPanels -= 1
 						fuelCondPower = "Solar Panel"
 					else:
-						print("You need at least one solar panel!")
+						print("You need to craft at least one solar panel!")
 						input()
 			elif menu == "2":
 				print("Please insert an item into the")
@@ -271,8 +272,7 @@ def main_base_fc(): # Fuel Condenser Branch
 				if fuelCondPower == "Solar Panel": solarPanels += 1
 				fuelCondPower = "Empty"
 			elif menu == "2":
-				progress("Collecting", 5)
-				wait(5)
+				progress
 				fuel += 1
 				print("Recieved [1x Fuel]")
 				input()
@@ -295,6 +295,7 @@ def main_base_pr(): # Printer Branch
 			menu = input("(Y/N) ")
 			if menu == "y":
 				if aluminium >= 100:
+					progress("Crafting", 10)
 					aluminium -= 100
 					solarPanels += 1
 				else:
@@ -319,6 +320,7 @@ def main_base_up(): # Upgrader Branch
 			menu = input("(Y/N) ")
 			if menu == "y":
 				if compound >= (tank/2)*10:
+					progress("Upgrading", 5)
 					compound -= (tank/2)*10
 					tank += 10
 				else:
@@ -345,18 +347,15 @@ def main_base_sm(): # Smelter Branch
 		if menu == "0":
 			_SMELTERY = False
 		elif menu == "1":
-			print("Smelting... (5 seconds)")
-			wait(5)
+			progress("Smelting", 5)
 			copper += copperOre
 			copperOre = 0
 		elif menu == "2":
-			print("Smelting... (5 seconds)")
-			wait(5)
+			progress("Smelting", 5)
 			aluminium += aluminiumOre
 			aluminiumOre = 0
 		elif menu == "3":
-			print("Smelting... (5 seconds)")
-			wait(5)
+			progress("Smelting", 5)
 			iron += ironOre
 			ironOre = 0
 def main_inventory(): # Inventory Branch
