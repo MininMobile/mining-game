@@ -31,18 +31,22 @@ _MAIN = True
 menu = "N/A"
 
 # Define Functions
+# Clear Screen Function
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system("clear")
 elif platform == "darwin":
 	clear = lambda: os.system("clear && printf '\e[3J'")
 elif platform == "win32":
 	clear = lambda: os.system("cls")
+else:
+	cllear = lambda: os.system("clear")
 
+# Wait Function
 def wait(x):
 	time.sleep(x)
 
-# Create sub-menus
-def main_mine():
+# Create Branches
+def main_mine(): # Mine Branch
 	clear()
 	global compound
 	global resin
@@ -64,7 +68,7 @@ def main_mine():
 	print("Iron Ore: " + str(ironOre))
 	print(" ")
 	input("Press enter to return... ")
-def main_explore():
+def main_explore(): # Explore Branch
 	clear()
 	discover = 0
 	global unlockedFuelC
@@ -113,7 +117,7 @@ def main_explore():
 	else:
 		print("You didn't find anything of intrest...")
 		input("Press enter to return... ")
-def main_base():
+def main_base(): # Base/Build Branch
 	global resin
 	global unlockedPrint
 	global unlockedFuelC
@@ -211,7 +215,7 @@ def main_base():
 			if smelteryBuilt: main_base_sm()
 		elif menu == "u":
 			if upgraderBuilt: main_base_up()
-def main_base_fc():
+def main_base_fc(): # Fuel Condenser Branch
 	global fuel
 	global solarPanels
 	global fuelCondPower
@@ -271,7 +275,7 @@ def main_base_fc():
 				fuel += 1
 				print("Recieved [1x Fuel]")
 				input()
-def main_base_pr():
+def main_base_pr(): # Printer Branch
 	global solarPanels
 	global aluminium
 	_PRINT = True
@@ -295,7 +299,7 @@ def main_base_pr():
 				else:
 					print("Not enough Aluminium!")
 					input()
-def main_base_up():
+def main_base_up(): # Upgrader Branch
 	global compound
 	global tank
 	_UPGRADE = True
@@ -319,7 +323,7 @@ def main_base_up():
 				else:
 					print("Not enough Compound!")
 					input()
-def main_base_sm():
+def main_base_sm(): # Smelter Branch
 	global copperOre
 	global aluminiumOre
 	global ironOre
@@ -354,7 +358,7 @@ def main_base_sm():
 			wait(5)
 			iron += ironOre
 			ironOre = 0
-def main_inventory():
+def main_inventory(): # Inventory Branch
 	clear()
 	print("Inventory:")
 	print(" ")
