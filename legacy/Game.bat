@@ -1,23 +1,25 @@
 @echo off
 title Mining Game
 
+:: Create Game Save Directory
 cd C:\
 mkdir LaximGames
 cd LaximGames
 mkdir MiningGame
 cd MiningGame
 
+:: Attempt load of Game Save
 if exist Save.bat goto LoadFound
 
 :reset
 
-rem Variable Initialization
-rem Ore
+:: Variable Initialization
+:: Ore
 set /a copperOre = 0
 set /a aluminiumOre = 0
 set /a ironOre = 0
 
-rem Materials
+:: Materials
 set /a copper = 0
 set /a aluminium = 0
 set /a iron = 0
@@ -25,28 +27,29 @@ set /a iron = 0
 set /a compound = 0
 set /a resin = 0
 
-rem Misc
+:: Misc
 set /a tank = 10
 set /a uses = 0
 set /a foundStructure = 0
 set /a fuel = 0
 
-rem Items
+:: Items
 set /a SolPan = 0
 
-rem Base
+:: Base
 set /a unlockedFuelC = 0
 set /a unlockedPrint = o
 
-rem Buildings
+:: Buildings
 set /a fuelCondBuilt = 0
 set /a upgraderBuilt = 0
 set /a smelteryBuilt = 0 
 set /a PrinterBuilt = 0
 
-rem Base Data
+:: Base Data
 set /a FuelCondPanel = 0
 
+:: MAIN MENU
 :menu
 cls
 echo Mining Game
@@ -70,6 +73,7 @@ If %i% == d goto delSave
 if %i% == ecsdee goto Cheats
 goto menu
 
+:: MINE BRANCH
 :Mine
 set /a uses = 0
 :Repeat
@@ -98,6 +102,7 @@ echo Press any key to go to menu...
 pause>nul
 goto menu
 
+:: EXPLORATION BRANCH
 :Exp
 set /a uses = 0
 :RepeatExp
@@ -202,6 +207,7 @@ echo Press any key to go back to home base...
 pause>nul
 goto menu
 
+:: INVENTORY BRANCH
 :Inv
 cls
 echo Inventory
@@ -232,6 +238,7 @@ echo Press any key to go to menu...
 pause>nul
 goto menu
 
+:: BASE BRANCH
 :Base
 cls
 echo Your Base
@@ -402,14 +409,14 @@ echo.
 echo Container [Solar Panel]
 echo.
 echo 0) Return to base
-echo 1) Remove Solar Panel
+echo 1) ::ove Solar Panel
 echo 2) Collect Fuel
 set /p i=
-if %i% == 1 goto FuelCondPanelRem
+if %i% == 1 goto FuelCondPanel::
 if %i% == 2 goto CollectFuel1
 if %i% == 0 goto base
 goto fuelCondCont
-:FuelCondPanelRem
+:FuelCondPanel::
 set /a SolPan = %SolPan%+1
 set /a FuelCondPanel = 0
 goto fuelCond
@@ -601,6 +608,7 @@ echo Not unlocked yet!
 pause>nul
 goto build
 
+:: CHEAT BRANCH
 :Cheats
 cls
 echo Congratulations!
@@ -797,6 +805,7 @@ if %i% == y goto loadConfirm
 if %i% == n goto reset
 goto LoadFound
 
+:: LOAD BRANCH
 :Load
 cls
 echo Do you want to load?
@@ -823,6 +832,7 @@ echo Press any key to go to main menu...
 pause>nul
 goto menu
 
+:: SAVE BRANCH
 :save
 cls
 echo Saving...
@@ -857,6 +867,7 @@ echo Press any key to go to menu...
 pause>nul
 goto menu
 
+:: DELETE SAVE BRANCH
 :delSave
 cls
 echo Delete saved game?
