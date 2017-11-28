@@ -41,6 +41,12 @@ elif platform == "win32":
 else:
 	cllear = lambda: os.system("clear")
 
+# Progress Wait Function
+def progress(text, length):
+	for x in range(1, length):
+		print(text + "(" + (length - x) + " Seconds)")
+		wait(1)
+
 # Wait Function
 def wait(x):
 	time.sleep(x)
