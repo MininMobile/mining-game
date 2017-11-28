@@ -31,6 +31,61 @@ _MAIN = True
 menu = "N/A"
 
 # Define Functions
+# Load Data
+def loadGameData():
+	global copperOre
+	global aluminiumOre
+	global ironOre
+	global copper
+	global aluminium
+	global iron
+	global compound
+	global resin
+	global tank
+	global uses
+	global foundStructure
+	global fuel
+	global solarPanels
+	global unlockedFuelC
+	global unlockedPrint
+	global fuelCondBuilt
+	global upgraderBuilt
+	global smelteryBuilt
+	global printerBuilt
+	global fuelCondPower
+
+	os.system("py game_save.py")
+
+# Save Data
+def saveGameData():
+	save = open("./game_save.py", "w")
+
+	saveData = "def load():\n"
+	saveData += "	copperOre = " + str(copperOre) + "\n"
+	saveData += "	aluminiumOre = " + str(aluminiumOre) + "\n"
+	saveData += "	ironOre = " + str(ironOre) + "\n"
+	saveData += "	copper = " + str(copper) + "\n"
+	saveData += "	aluminium = " + str(aluminium) + "\n"
+	saveData += "	iron = " + str(iron) + "\n"
+	saveData += "	compound = " + str(compound) + "\n"
+	saveData += "	resin = " + str(resin) + "\n"
+	saveData += "	tank = " + str(tank) + "\n"
+	saveData += "	uses = " + str(uses) + "\n"
+	saveData += "	foundStructure = " + str(foundStructure) + "\n"
+	saveData += "	fuel = " + str(fuel) + "\n"
+	saveData += "	solarPanels = " + str(solarPanels) + "\n"
+	saveData += "	unlockedFuelC = " + str(unlockedFuelC) + "\n"
+	saveData += "	unlockedPrint = " + str(unlockedPrint) + "\n"
+	saveData += "	fuelCondBuilt = " + str(fuelCondBuilt) + "\n"
+	saveData += "	upgraderBuilt = " + str(upgraderBuilt) + "\n"
+	saveData += "	smelteryBuilt = " + str(smelteryBuilt) + "\n"
+	saveData += "	printerBuilt = " + str(printerBuilt) + "\n"
+	saveData += "	fuelCondPower = '" + str(fuelCondPower) + "' \n"
+
+	save.write(saveData)
+
+	save.close()
+
 # Clear Screen Function
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system("clear")
@@ -384,6 +439,18 @@ def main_inventory(): # Inventory Branch
 	print("Fuel: " + str(fuel) + "l")
 	print(" ")
 	input("Press enter to return... ")
+def main_debug(): # Debug Branch
+	print("Debug")
+	print(" ")
+	print("e) eval")
+	print("x) exec")
+	menu = input()
+	if menu == "e":
+		menu = input()
+		eval(menu)
+	elif menu == "x":
+		menu = input()
+		exec(menu)
 
 # Main Process
 while _MAIN:
@@ -412,3 +479,5 @@ while _MAIN:
 	 main_base()
 	elif menu == "4":
 		main_inventory()
+	elif menu == "d":
+		main_debug()
