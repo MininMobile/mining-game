@@ -41,15 +41,15 @@ elif platform == "win32":
 else:
 	cllear = lambda: os.system("clear")
 
-# Progress Wait Function
-def progress(text, length):
-	for x in range(1, length):
-		print(text + "(" + (length - x) + " Seconds)")
-		wait(1)
-
 # Wait Function
 def wait(x):
 	time.sleep(x)
+
+# Progress Wait Function
+def progress(text, length):
+	for x in range(0, length):
+		print(text + "... (" + str(length - x) + " Seconds)")
+		wait(1)
 
 # Create Branches
 def main_mine(): # Mine Branch
@@ -167,8 +167,7 @@ def main_base(): # Base/Build Branch
 						menu = input("(Y/N) ")
 						if menu == "y":
 							if resin >= 50:
-								print("Building... (10 Seconds)")
-								wait(10)
+								progress("Building", 10)
 								resin -= 50
 								fuelCondBuilt = True
 							else:
@@ -180,8 +179,7 @@ def main_base(): # Base/Build Branch
 						menu = input("(Y/N) ")
 						if menu == "y":
 							if resin >= 200:
-								print("Building... (10 Seconds)")
-								wait(10)
+								progress("Building", 10)
 								resin -= 200
 								printerBuilt = True
 							else:
@@ -193,8 +191,7 @@ def main_base(): # Base/Build Branch
 						menu = input("(Y/N) ")
 						if menu == "y":
 							if resin >= 200:
-								print("Building... (10 Seconds)")
-								wait(10)
+								progress("Building", 10)
 								resin -= 200
 								upgraderBuilt = True
 							else:
@@ -206,8 +203,7 @@ def main_base(): # Base/Build Branch
 						menu = input("(Y/N) ")
 						if menu == "y":
 							if resin >= 100:
-								print("Building... (10 Seconds)")
-								wait(10)
+								progress("Building", 10)
 								resin -= 100
 								smelteryBuilt = True
 							else:
@@ -271,12 +267,11 @@ def main_base_fc(): # Fuel Condenser Branch
 			if menu == "0":
 				_CONDENSER = False
 			elif menu == "1":
-				print("Extracting... (3 Seconds)")
-				wait(3)
+				progress("Extracting", 3)
 				if fuelCondPower == "Solar Panel": solarPanels += 1
 				fuelCondPower = "Empty"
 			elif menu == "2":
-				print("Collecting... (5 Seconds)")
+				progress("Collecting", 5)
 				wait(5)
 				fuel += 1
 				print("Recieved [1x Fuel]")
