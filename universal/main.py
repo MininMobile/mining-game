@@ -17,7 +17,6 @@ compound = 0
 resin = 0
 tank = 10
 uses = 0
-foundStructure = 0
 fuel = 0
 solarPanels = 0
 unlockedFuelC = False
@@ -31,61 +30,6 @@ _MAIN = True
 menu = "N/A"
 
 # Define Functions
-# Load Data
-def loadGameData():
-	global copperOre
-	global aluminiumOre
-	global ironOre
-	global copper
-	global aluminium
-	global iron
-	global compound
-	global resin
-	global tank
-	global uses
-	global foundStructure
-	global fuel
-	global solarPanels
-	global unlockedFuelC
-	global unlockedPrint
-	global fuelCondBuilt
-	global upgraderBuilt
-	global smelteryBuilt
-	global printerBuilt
-	global fuelCondPower
-
-	os.system("py game_save.py")
-
-# Save Data
-def saveGameData():
-	save = open("./game_save.py", "w")
-
-	saveData = "def load():\n"
-	saveData += "	copperOre = " + str(copperOre) + "\n"
-	saveData += "	aluminiumOre = " + str(aluminiumOre) + "\n"
-	saveData += "	ironOre = " + str(ironOre) + "\n"
-	saveData += "	copper = " + str(copper) + "\n"
-	saveData += "	aluminium = " + str(aluminium) + "\n"
-	saveData += "	iron = " + str(iron) + "\n"
-	saveData += "	compound = " + str(compound) + "\n"
-	saveData += "	resin = " + str(resin) + "\n"
-	saveData += "	tank = " + str(tank) + "\n"
-	saveData += "	uses = " + str(uses) + "\n"
-	saveData += "	foundStructure = " + str(foundStructure) + "\n"
-	saveData += "	fuel = " + str(fuel) + "\n"
-	saveData += "	solarPanels = " + str(solarPanels) + "\n"
-	saveData += "	unlockedFuelC = " + str(unlockedFuelC) + "\n"
-	saveData += "	unlockedPrint = " + str(unlockedPrint) + "\n"
-	saveData += "	fuelCondBuilt = " + str(fuelCondBuilt) + "\n"
-	saveData += "	upgraderBuilt = " + str(upgraderBuilt) + "\n"
-	saveData += "	smelteryBuilt = " + str(smelteryBuilt) + "\n"
-	saveData += "	printerBuilt = " + str(printerBuilt) + "\n"
-	saveData += "	fuelCondPower = '" + str(fuelCondPower) + "' \n"
-
-	save.write(saveData)
-
-	save.close()
-
 # Clear Screen Function
 if platform == "linux" or platform == "linux2":
 	clear = lambda: os.system("clear")
@@ -105,6 +49,89 @@ def progress(text, length):
 	for x in range(0, length):
 		print(text + "... (" + str(length - x) + " Seconds)")
 		wait(1)
+
+# (proper) str -> bool
+def sbool(string):
+	return string == 'True'
+
+# Load Data
+def loadGameData():
+	global copperOre
+	global aluminiumOre
+	global ironOre
+	global copper
+	global aluminium
+	global iron
+	global compound
+	global resin
+	global tank
+	global uses
+	global fuel
+	global solarPanels
+	global unlockedFuelC
+	global unlockedPrint
+	global fuelCondBuilt
+	global upgraderBuilt
+	global smelteryBuilt
+	global printerBuilt
+	global fuelCondPower
+
+	print("Opening save file...")
+	save = open("./game_save.py", "r")
+	print("Reading save data...")
+	lines = save.read().splitlines()
+
+	print("Translating save data to game data...")
+	copperOre = int(lines[0])
+	aluminiumOre = int(lines[1])
+	ironOre = int(lines[2])
+	copper = int(lines[3])
+	aluminium = int(lines[4])
+	iron = int(lines[5])
+	compound = int(lines[6])
+	resin = int(lines[7])
+	tank = int(lines[8])
+	uses = int(lines[9])
+	fuel = int(lines[10])
+	solarPanels = int(lines[11])
+	unlockedFuelC = sbool(lines[12])
+	unlockedPrint = sbool(lines[13])
+	fuelCondBuilt = sbool(lines[14])
+	upgraderBuilt = sbool(lines[15])
+	smelteryBuilt = sbool(lines[16])
+	printerBuilt = sbool(lines[17])
+	fuelCondPower = str(lines[18])
+
+	print("Closing save file...")
+	save.close()
+
+# Save Data
+def saveGameData():
+	save = open("./game_save.py", "w")
+
+	saveData = str(copperOre) + "\n"
+	saveData += str(aluminiumOre) + "\n"
+	saveData += str(ironOre) + "\n"
+	saveData += str(copper) + "\n"
+	saveData += str(aluminium) + "\n"
+	saveData += str(iron) + "\n"
+	saveData += str(compound) + "\n"
+	saveData += str(resin) + "\n"
+	saveData += str(tank) + "\n"
+	saveData += str(uses) + "\n"
+	saveData += str(fuel) + "\n"
+	saveData += str(solarPanels) + "\n"
+	saveData += str(unlockedFuelC) + "\n"
+	saveData += str(unlockedPrint) + "\n"
+	saveData += str(fuelCondBuilt) + "\n"
+	saveData += str(upgraderBuilt) + "\n"
+	saveData += str(smelteryBuilt) + "\n"
+	saveData += str(printerBuilt) + "\n"
+	saveData += "'" + str(fuelCondPower) + "'\n"
+
+	save.write(saveData)
+
+	save.close()
 
 # Create Branches
 def main_mine(): # Mine Branch
@@ -439,7 +466,10 @@ def main_inventory(): # Inventory Branch
 	print("Fuel: " + str(fuel) + "l")
 	print(" ")
 	input("Press enter to return... ")
+def main_settings():
+	print("nothing")
 def main_debug(): # Debug Branch
+	clear()
 	print("Debug")
 	print(" ")
 	print("e) eval")
@@ -453,6 +483,14 @@ def main_debug(): # Debug Branch
 		exec(menu)
 
 # Main Process
+# Check for Save Data
+if (os.path.isfile("./game_save.py")):
+			print("A save file has been detected!")
+			menu = input("Are you want to load it? (Y/N) ")
+			if (menu == "y"):
+				loadGameData()
+
+# Main Menu
 while _MAIN:
 	clear()
 	print("Mining Game")
@@ -461,23 +499,75 @@ while _MAIN:
 	print("2) Explore")
 	print("3) Base")
 	print("4) Inventory")
+	print("5) Settings")
 	print(" ")
-	#print("s) Save Game")
-	#print("l) Load Saved Game")
-	#print("d) Delete Saved Game")
-	#print(" ")
+	print("s) Save Game")
+	print("l) Load Saved Game")
+	print("d) Delete Saved Game")
+	print(" ")
 	print("0) Exit")
 	print(" ")
 	menu = input()
 	if menu == "0":
-		_MAIN = False
+		clear()
+		print("Are you sure you want to exit now?")
+		print("You might have unsaved resources!")
+		print(" ")
+		print("e) Exit")
+		print("s) Save and Exit")
+		print(" ")
+		menu = input()
+		if (menu == "e"):
+			_MAIN = False
+		else:
+			saveGameData()
+			_MAIN = False
+
 	elif menu == "1":
 		main_mine()
+
 	elif menu == "2":
 		main_explore()
+
 	elif menu == "3":
-	 main_base()
+		main_base()
+
 	elif menu == "4":
 		main_inventory()
+
+	elif menu == "5":
+		main_settings()
+
+	elif menu == "s":
+		clear()
+		if (os.path.isfile("./game_save.py")):
+			print("A save file has been detected!")
+			menu = input("Are you want to overwrite it? (Y/N) ")
+			if (menu == "y"):
+				saveGameData()
+		else:
+			saveGameData()
+
+	elif menu == "l":
+		clear()
+		if (os.path.isfile("./game_save.py")):
+			print("A save file has been detected!")
+			menu = input("Are you want to load it? (Y/N) ")
+			if (menu == "y"):
+				loadGameData()
+		else:
+			print("No save file detected!")
+			input()
+
 	elif menu == "d":
-		main_debug()
+		clear()
+		print("This action is irriversable!")
+		menu = input("Are you sure you want to delete your save file? (Y/N) ")
+		if (menu == "y"):
+			if (os.path.isfile("./game_save.py")):
+				os.remove("./game_save.py")
+				print("Save file deleted!")
+				input()
+			else:
+				print("No save file detected...")
+				input()
