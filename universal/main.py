@@ -26,6 +26,7 @@ upgraderBuilt = False
 smelteryBuilt = False
 printerBuilt = False
 fuelCondPower = "Empty"
+autoSave = False
 _MAIN = True
 menu = "N/A"
 
@@ -49,6 +50,12 @@ def progress(text, length):
 	for x in range(0, length):
 		print(text + "... (" + str(length - x) + " Seconds)")
 		wait(1)
+
+def oo(bool):
+	if (bool):
+		return "On"
+	else:
+		return "Off"
 
 # (proper) str -> bool
 def sbool(string):
@@ -75,6 +82,7 @@ def loadGameData():
 	global smelteryBuilt
 	global printerBuilt
 	global fuelCondPower
+	global autoSave
 
 	print("Opening save file...")
 	save = open("./game_save.py", "r")
@@ -101,6 +109,7 @@ def loadGameData():
 	smelteryBuilt = sbool(lines[16])
 	printerBuilt = sbool(lines[17])
 	fuelCondPower = str(lines[18])
+	autoSave = sbool(lines[19])
 
 	print("Closing save file...")
 	save.close()
@@ -128,6 +137,7 @@ def saveGameData():
 	saveData += str(smelteryBuilt) + "\n"
 	saveData += str(printerBuilt) + "\n"
 	saveData += "'" + str(fuelCondPower) + "'\n"
+	saveData += str(autoSave) + "\n"
 
 	save.write(saveData)
 
@@ -420,10 +430,10 @@ def main_base_sm(): # Smelter Branch
 		clear()
 		print("Smeltery")
 		print(" ")
-		print("0) Back to Base")
 		print("1) Smelt Copper")
 		print("2) Smelt Aluminium")
 		print("3) Smelt Iron")
+		print("0) Back to Base")
 		print(" ")
 		menu = input()
 		if menu == "0":
@@ -465,30 +475,46 @@ def main_inventory(): # Inventory Branch
 	print("Oxygen Tank: " + str(tank) + "m")
 	print("Fuel: " + str(fuel) + "l")
 	print(" ")
-	input("Press enter to return... ")
+	input()
 def main_settings():
-	print("nothing")
+	global autoSave
+	_SETTINGS = True
+	while _SETTINGS:
+		clear()
+		print("Settings")
+		print(" ")
+		print("1) Toggle Auto Save | " + oo(autoSave))
+		print("0) Back")
+		print(" ")
+		menu = input()
+		if menu == "1":
+			autoSave = not autoSave
+		elif menu == "0":
+			_SETTINGS = False
 def main_debug(): # Debug Branch
 	clear()
 	print("Debug")
 	print(" ")
 	print("e) eval")
 	print("x) exec")
+	print(" ")
 	menu = input()
 	if menu == "e":
 		menu = input()
-		eval(menu)
+		print(eval(menu))
+		input()
 	elif menu == "x":
 		menu = input()
 		exec(menu)
+		input()
 
 # Main Process
 # Check for Save Data
 if (os.path.isfile("./game_save.py")):
-			print("A save file has been detected!")
-			menu = input("Are you want to load it? (Y/N) ")
-			if (menu == "y"):
-				loadGameData()
+	print("A save file has been detected!")
+	menu = input("Are you want to load it? (Y/N) ")
+	if (menu == "y"):
+		loadGameData()
 
 # Main Menu
 while _MAIN:
@@ -571,3 +597,6 @@ while _MAIN:
 			else:
 				print("No save file detected...")
 				input()
+
+	elif menu == "debug":
+		main_debug()
