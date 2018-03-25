@@ -1,5 +1,6 @@
 # mining-game universal
 This is the python release of `mining-game` which can be
 used and ran on all platforms that can also run `python 3.6^`,
-this version needs to support the legacy, batch version before
-I starts adding more features.
+now that it has caught up with the legacy version, new
+features will be added while staying true to the original,
+legacy version of the game to keep the experience fun.
