@@ -476,7 +476,7 @@ def main_inventory(): # Inventory Branch
 	print("Fuel: " + str(fuel) + "l")
 	print(" ")
 	input()
-def main_settings():
+def main_settings(): # Settings Branch
 	global autoSave
 	_SETTINGS = True
 	while _SETTINGS:
