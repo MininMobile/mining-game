@@ -520,6 +520,9 @@ if (os.path.isfile("./game_save.py")):
 while _MAIN:
 	clear()
 	print("Mining Game")
+	if (autoSave):
+		saveGameData()
+		print("> Game Auto-Saved")
 	print(" ")
 	print("1) Mine")
 	print("2) Explore")
