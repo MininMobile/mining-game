@@ -39,7 +39,7 @@ elif platform == "darwin":
 elif platform == "win32":
 	clear = lambda: os.system("cls")
 else:
-	cllear = lambda: os.system("clear")
+	clear = lambda: os.system("clear")
 
 # Wait Function
 def wait(x):
