@@ -6,3 +6,6 @@ A simple, text-based game where you can mine and build.
 
 ## Universal Build
 `universal/`; rewritten version of game, written in python.
+
+## Web Build
+`web/`; rewritten version of game, written is js.
