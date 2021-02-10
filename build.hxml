@@ -1,0 +1,9 @@
+--class-path src
+--main Main
+--library heaps
+# debug
+--debug
+--js out/out.js
+# build
+#--library hlsdl
+#--hl out/out.c

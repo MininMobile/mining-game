@@ -1,2 +1,2 @@
-# Exclude Game Saves
-universal/game_save.py
+out/*
+!out/index.html

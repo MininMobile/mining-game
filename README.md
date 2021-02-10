@@ -1,11 +1,4 @@
-# mining-game
-A simple, text-based game where you can mine and build.
+                               mining game deluxe
 
-## Legacy Build
-`legacy/`; original version of game, written in batch.
-
-## Universal Build
-`universal/`; rewritten version of game, written in python.
-
-## Web Build
-`web/`; rewritten version of game, written is js.
+thrice rewritten version of "mining game",  this time it will be the greatest it
+has ever been.
